@@ -2,13 +2,4 @@
     package="com.prolificinteractive.materialcalendarview"
     >
 
-  <application>
-    <provider
-        android:name=".MaterialCalendarViewInitProvider"
-        android:authorities="${applicationId}.materialcalendarviewinitprovider"
-        android:enabled="true"
-        android:exported="false"
-        />
-  </application>
-
 </manifest>

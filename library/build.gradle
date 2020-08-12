@@ -33,7 +33,6 @@ archivesBaseName = 'material-calendarview'
 
 dependencies {
   coreLibraryDesugaring rootProject.ext.desugar
-  implementation rootProject.ext.threeTenAbp
   implementation rootProject.ext.supportV4
   implementation rootProject.ext.supportAppCompat
   implementation rootProject.ext.supportAnnotations
