@@ -11,6 +11,8 @@ android {
 
     versionCode 1
     versionName "1.0"
+
+    multiDexEnabled = true
   }
 
   lintOptions {
@@ -18,6 +20,7 @@ android {
   }
 
   compileOptions {
+    coreLibraryDesugaringEnabled true
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
@@ -29,6 +32,7 @@ dependencies {
   implementation project(':library')
   //compile 'com.prolificinteractive:material-calendarview:1.4.3'
 
+  coreLibraryDesugaring rootProject.ext.desugar
   implementation rootProject.ext.threeTenAbp
   implementation rootProject.ext.supportAppCompat
   implementation rootProject.ext.recyclerviewV7

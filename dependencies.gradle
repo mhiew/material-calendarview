@@ -29,6 +29,9 @@ ext {
   butterknife = 'com.jakewharton:butterknife:8.5.1'
   butterknifeCompiler = 'com.jakewharton:butterknife-compiler:8.5.1'
 
+  // Desugaring
+  desugar = 'com.android.tools:desugar_jdk_libs:1.0.5'
+
   testDep = [junit,
              hamcrestCore,
              hamcrestLibrary,
