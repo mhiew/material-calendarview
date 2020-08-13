@@ -35,6 +35,7 @@ dependencies {
   coreLibraryDesugaring rootProject.ext.desugar
   implementation rootProject.ext.supportV4
   implementation rootProject.ext.supportAppCompat
+  implementation rootProject.ext.supportDesign
   implementation rootProject.ext.supportAnnotations
 
   rootProject.ext.testDep.each { testImplementation it }
