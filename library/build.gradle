@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
-apply plugin: 'com.github.dcendents.android-maven'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -64,3 +62,5 @@ android.libraryVariants.all { variant ->
     }
   }
 }
+
+apply from: 'publish.gradle'

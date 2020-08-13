@@ -1,5 +1,25 @@
 <img src="/images/hero.png"/>
 
+
+#### This is a fork of the [Material CalendarVew](https://github.com/prolificinteractive/material-calendarview) 
+Switch back to the upstream mainline branch if when it is updated and maintained.
+
+# Publishing to Bintray
+Update the version number within [publish.gradle](./ucrop/publish.gradle)
+
+Run the following command to upload to the [bintray repo](https://bintray.com/mhiew/material-calendarview)
+```
+./gradlew clean publish bintrayUpload --info
+```
+
+Credentials are stored within `local.properties` 
+```
+bintray.user=<your-name>
+bintray.apikey=<your-key>
+```
+
+Login to [bintray repo](https://bintray.com/mhiew/material-calendarview) and publish the uploaded version.
+
 # Material Calendar View 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-blue.svg?style=flat)](https://android-arsenal.com/details/1/1531) [![](https://jitpack.io/v/prolificinteractive/material-calendarview.svg)](https://jitpack.io/#prolificinteractive/material-calendarview) [![Travis branch](https://img.shields.io/travis/prolificinteractive/material-calendarview.svg?maxAge=2592000)](https://travis-ci.org/prolificinteractive/material-calendarview)
 
@@ -10,13 +30,13 @@ and feel, rather than 100% parity with the platform's implementation.
 
 ## Installation
 
-Step 1. Add the JitPack repository to your build file
+Step 1. Add the jcenter repository to your build file
 
 ```groovy
 allprojects {
   repositories {
     ...
-    maven { url 'https://jitpack.io' }
+    jcenter()
   }
 }
 ```
@@ -25,7 +45,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-  implementation 'com.github.prolificinteractive:material-calendarview:${version}'
+  implementation 'com.mhiew.material-calendarview:library:${version}'
 }
 ```
 
@@ -72,6 +92,10 @@ One of the aims of this library is to be customizable. The many options include:
 All of this and more can be done via the decorator api. Please check out the [decorator documentation](https://github.com/prolificinteractive/material-calendarview/wiki/Decorators).
 
 ## Recent Changes
+
+### Major change in 2.0.2
+
+Migrated to AndroidX. Switched from ThreeTenABP to Java.Time Desugaring
 
 ### Major Change in 2.0
 

@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.2 *(2020-08-12)*
+----------------------------
+* New: Migrated to AndroidX Libraries
+* New: Switch from Using ThreeTenABP to Java.Time using Java 8 Desugaring
+
 Version 2.0.0 *(2018-09-07)*
 ----------------------------
 * New: Changed `java.util.Calendar` in favor of `java.time.LocalDate`.
