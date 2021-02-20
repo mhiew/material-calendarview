@@ -62,3 +62,12 @@ android.libraryVariants.all { variant ->
     }
   }
 }
+
+// Maven Publishing
+ext {
+  PUBLISH_GROUP_ID = 'com.github.mhiew'
+  PUBLISH_VERSION = '2.0.3'
+  PUBLISH_ARTIFACT_ID = 'material-calendarview'
+}
+
+apply from: "${rootProject.projectDir}/library/publish-mavencentral.gradle"

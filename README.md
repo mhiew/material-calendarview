@@ -1,12 +1,44 @@
 <img src="/images/hero.png"/>
 
-
 #### This is a fork of the [Material CalendarVew](https://github.com/prolificinteractive/material-calendarview) 
 Switch back to the upstream mainline branch if when it is updated and maintained.
 
-# Material Calendar View 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-blue.svg?style=flat)](https://android-arsenal.com/details/1/1531) [![](https://jitpack.io/v/prolificinteractive/material-calendarview.svg)](https://jitpack.io/#prolificinteractive/material-calendarview) [![Travis branch](https://img.shields.io/travis/prolificinteractive/material-calendarview.svg?maxAge=2592000)](https://travis-ci.org/prolificinteractive/material-calendarview)
+### Publishing To Maven Central
+#### Increment the Public Version within library/build.gradle
+```
+PUBLISH_VERSION = '2.0.3'
+```
 
+#### Setup Credentials In local.properties or as Environment Variables
+```
+#Maven Central
+signing.keyId=Last 8 Digits of your GPG Key
+signing.password=GPG PassPhrase
+signing.secretKeyRingFile=Path to Private GPG Key
+ossrhUsername=SonaType UserName
+ossrhPassword=SonaType Pasword
+```
+
+If there are issues with gpg KeyRingFile export it again.
+I think the issue may occur if we don't set the correct file extension (.asc vs .gpg)
+```
+gpg --export-secret-keys -o secring.gpg
+```
+
+#### Publish Task
+```
+$ ./gradlew publishReleasePublicationToSonaTypeRepository
+```
+
+#### Verify Staging Repository on https://oss.sonatype.org/
+- check the output content
+- close the repository
+- release when satisfied
+- drop otherwise
+
+TODO: Automate This In the Future
+
+# Material Calendar View 
 A Material design back port of Android's CalendarView. The goal is to have a Material look
 and feel, rather than 100% parity with the platform's implementation.
 
@@ -14,13 +46,13 @@ and feel, rather than 100% parity with the platform's implementation.
 
 ## Installation
 
-Step 1. Add the jcenter repository to your build file
+Step 1. Add the MavenCentral repository to your build file
 
 ```groovy
 allprojects {
   repositories {
     ...
-    jcenter()
+    mavenCentral()
   }
 }
 ```
@@ -29,7 +61,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-  implementation 'com.mhiew.material-calendarview:library:${version}'
+  implementation 'com.github.mhiew:material-calendarview:2.0.3'
 }
 ```
 
@@ -76,6 +108,10 @@ One of the aims of this library is to be customizable. The many options include:
 All of this and more can be done via the decorator api. Please check out the [decorator documentation](https://github.com/prolificinteractive/material-calendarview/wiki/Decorators).
 
 ## Recent Changes
+
+### Minor change in 2.0.3
+Update some build configs
+Move hosting from Bintray to Maven Central to support JCenter Sunsetting
 
 ### Major change in 2.0.2
 

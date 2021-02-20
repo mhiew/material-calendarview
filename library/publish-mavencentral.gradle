@@ -1,0 +1,130 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+def isAndroid = plugins.hasPlugin('com.android.library')
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (isAndroid) {
+        from android.sourceSets.main.java.srcDirs
+    } else {
+        from sourceSets.main.allSource
+    }
+}
+
+if (isAndroid) {
+    task javadoc(type: Javadoc) {
+        android.libraryVariants.all { variant ->
+            source = variant.javaCompiler.source
+            doFirst {
+                classpath = files(variant.javaCompiler.classpath.files, project.android.getBootClasspath())
+            }
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+            options {
+                links "http://docs.oracle.com/javase/7/docs/api/"
+                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+            }
+            options.addStringOption('Xdoclint:none', '-quiet')
+            options.addStringOption('encoding', 'UTF-8')
+            options.addStringOption('charSet', 'UTF-8')
+        }
+    }
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+ext["signing.keyId"] = ''
+ext["signing.password"] = ''
+ext["signing.secretKeyRingFile"] = ''
+ext["ossrhUsername"] = ''
+ext["ossrhPassword"] = ''
+ext["sonatypeStagingProfileId"] = ''
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    Properties p = new Properties()
+    p.load(new FileInputStream(secretPropsFile))
+    p.each { name, value ->
+        ext[name] = value
+    }
+} else {
+    ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
+    ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
+    ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
+    ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
+    ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
+    ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                if (isAndroid) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+                artifact sourcesJar
+                artifact javadocJar
+
+                // Set within Library Gradle
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = 'Fork of Prolific Interactive - Material Calendar Library migrated to use AndroidX and Java.Time Desugaring'
+                    url = 'https://github.com/mhiew/material-calendarview'
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://github.com/mhiew/material-calendarview/blob/master/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'min'
+                            name = 'Min Hiew'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/mhiew/material-calendarview'
+                        developerConnection = 'scm:git:ssh://github.com:mhiew/material-calendarview.git'
+                        url = 'https://github.com/mhiew/material-calendarview'
+                    }
+                }
+            }
+        }
+        // The repository to publish to, Sonatype/MavenCentral
+        repositories {
+            maven {
+                // This is an arbitrary name, you may also use "mavencentral" or
+                // any other name that's descriptive for you
+                name = "sonatype"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}

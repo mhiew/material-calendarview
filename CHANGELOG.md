@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.3 *(2021-02-20)*
+----------------------------
+* Migrated to Maven Central from Bintray
+* Upgrade Gradle Build Tools and Desugaring Library
+
 Version 2.0.2 *(2020-08-12)*
 ----------------------------
 * New: Migrated to AndroidX Libraries
