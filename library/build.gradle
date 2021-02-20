@@ -62,5 +62,3 @@ android.libraryVariants.all { variant ->
     }
   }
 }
-
-apply from: 'publish.gradle'

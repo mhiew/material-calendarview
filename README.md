@@ -4,22 +4,6 @@
 #### This is a fork of the [Material CalendarVew](https://github.com/prolificinteractive/material-calendarview) 
 Switch back to the upstream mainline branch if when it is updated and maintained.
 
-# Publishing to Bintray
-Update the version number within [publish.gradle](./ucrop/publish.gradle)
-
-Run the following command to upload to the [bintray repo](https://bintray.com/mhiew/material-calendarview)
-```
-./gradlew clean publish bintrayUpload --info
-```
-
-Credentials are stored within `local.properties` 
-```
-bintray.user=<your-name>
-bintray.apikey=<your-key>
-```
-
-Login to [bintray repo](https://bintray.com/mhiew/material-calendarview) and publish the uploaded version.
-
 # Material Calendar View 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-blue.svg?style=flat)](https://android-arsenal.com/details/1/1531) [![](https://jitpack.io/v/prolificinteractive/material-calendarview.svg)](https://jitpack.io/#prolificinteractive/material-calendarview) [![Travis branch](https://img.shields.io/travis/prolificinteractive/material-calendarview.svg?maxAge=2592000)](https://travis-ci.org/prolificinteractive/material-calendarview)
 
